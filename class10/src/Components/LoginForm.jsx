@@ -1,6 +1,9 @@
 import React from "react"
 import { Formik,Form, Field,ErrorMessage } from "formik"
 import * as Yup from 'yup';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth,db } from "../Configs/Firebase";
+import { Ref,push } from "firebase/database";
 // import { Form } from "react-router-dom";
 
 function LoginForm(){
@@ -11,27 +14,37 @@ function LoginForm(){
         initialValues={{email :"",firstName:""}} //inital value start 
       
         validationSchema={Yup.object({
-            firstName:Yup.string().min(10,"min lettr 10").required(),
+            password:Yup.string().min(6,"min lettr 6").required(),
             email:Yup.string().email("Invalid email address").required()
         }) }
-        onSubmit={(value)=>{
+        onSubmit={async (value)=>{
             console.log(value)
+            try{
+                const user = await createUserWithEmailAndPassword(auth,value.email,value.password)
+                console.log(user.user.uid)
+                
+                alert("Registered successful")
+            } catch(e){
+                console.log(e)
+                alert(e.code)
+            }
         }}
         >
             <Form style={{textAlign:"center"}}>
-                <Field name={"email"}/>
+                <label htmlFor="email">Email: </label>
+                <Field className='email' name={"email"}/>
                 <br/>
 
                 <ErrorMessage name={"email"}/>
                 <br/>
-
-                <Field name={"firstName"}/>
+                <label htmlFor="password">Password: </label>
+                <Field name={"password"}/>
                 <br/>
 
-                <ErrorMessage name={"firstName"}/>
+                <ErrorMessage name={"password"}/>
                 <br/>
 
-                <button type="submit">Submit</button>
+                <button style={{backgroundColor:'blue', color:'white'}} type="submit">Submit</button>
 
             </Form>
 
