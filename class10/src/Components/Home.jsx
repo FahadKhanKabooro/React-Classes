@@ -1,6 +1,7 @@
 
 import React,{Component} from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Material from "./material";
 
 
 //high order function use for use hook in class based componnets
@@ -26,6 +27,7 @@ class Home extends Component{
         return(
             <>
              <h1>Home page</h1>
+             <Material/>
              <button onClick={()=>this.getdata()}>data </button>
            
             </>

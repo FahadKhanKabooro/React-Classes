@@ -3,13 +3,14 @@ import { Routes , Route } from "react-router-dom";
 import Login from "../Components/Login";
 import Home from "../Components/Home";
 import LoginForm from "../Components/LoginForm";
+import Material from "../Components/material";
 
 
 class Navigation extends React.Component{
    render(){
     return(
         <Routes>
-            <Route path="/" element={<Login/>}>
+            <Route path="/" element={<Material/>}>
         
             </Route>
             <Route path="/Home" element={<Home/>}>
